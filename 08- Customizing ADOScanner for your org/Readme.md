@@ -39,7 +39,8 @@ Let us look at how policy files are leveraged in a little more detail.
 
 When you install AzSK.ADO, it downloads the latest AzSK.ADO module from the PS Gallery. Along with this module there is an *offline* set of policy files that go in a sub-folder under the %userprofile%\documents\WindowsPowerShell\Modules\AzSK.ADO\<version> folder. It also places (or updates) an AzSKSettings.JSON file in your %LocalAppData%\Microsoft\AzSK.ADO folder that contains the policy endpoint (or policy server) URL that is used by all local commands. 
 
-Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. The policy server URL always refer to first project in the 'ProjectNames' specified in scan command. If 'PolicyProject' is specified, then policy server URL will refer to the respective 'PolicyProject' specified .It first downloads a 'metadata' file that contains information about what other files are available on the policy server. After that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the 
+Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. It first downloads a 'metadata' file that contains information about what other files are available on the policy server. After 
+that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the 
 server-side. 
 
 It then accesses the policy to download a 'metadata' file that helps it determine the actual policy files list that is present on the server. Thereafter, the scan runs by overlaying the settings obtained from the server with 
@@ -84,7 +85,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -ProjectNames 
 Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -PolicyProject "<Name of the project hosting organization policy with which the scan should run.>"
 
 ```
-> **Note**: Using PolicyProject parameter you can specify the name of the project hosting organization policy with which the scan should run.
+> **Note**: Using PolicyProject parameter you can specify the name of the project hosting organization policy with which the scan should run.  The policy server always refer to first project in the 'ProjectNames' specified in scan command. If 'PolicyProject' is specified, then policy server URL will refer to the respective 'PolicyProject' specified .
 
 ### 2. Using ADO security scanner extension with custom org policy
 
